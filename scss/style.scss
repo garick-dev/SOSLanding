@@ -1,0 +1,1510 @@
+@import "../scss/normalize.scss";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;700&display=swap");
+
+// === COMMON === //
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// === Mixin === //
+
+@mixin bebas {
+  font-family: "Bebas Neue";
+}
+@mixin openB {
+  font-family: "Open Sans";
+  font-weight: 700;
+}
+@mixin openR {
+  font-family: "Open Sans";
+  font-weight: 400;
+}
+
+// === /Mixin === //
+
+// === Variables === //
+
+$color-main: #ffffff;
+$color-secondary: #ffb548;
+$color-three: #000000;
+$color-table: #2d2f2f;
+
+$font-size-xs: 12px;
+$font-size-s: 14px;
+$font-size-m: 18px;
+$font-size-l: 24px;
+
+$breakpoint-xs: 320px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+$transition: 0.3s;
+
+// === Variables === //
+
+body {
+  @include openR;
+  color: $color-main;
+  font-size: $font-size-m;
+  background-color: #08090a;
+  height: 100%;
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  body {
+    font-size: $font-size-s;
+  }
+}
+
+.wrap {
+  overflow-y: auto;
+  display: flex;
+}
+
+.wrap.vertical {
+  flex-direction: column;
+}
+
+.wrap.snap {
+  -moz-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.wrap.snap > section {
+  -moz-scroll-snap-align: start end;
+  scroll-snap-align: start end;
+}
+
+.wrap.snap.vertical {
+  flex-direction: column;
+  -moz-scroll-snap-type: y mandatory;
+  scroll-snap-type: y mandatory;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-lg) {
+  html,
+  body {
+    height: auto;
+  }
+}
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap > section {
+  scroll-snap-align: start end;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+}
+.wrap > .footer {
+  min-height: 20vh;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .container {
+    width: 320px;
+  }
+}
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  .container {
+    width: 576px;
+  }
+}
+
+.logo {
+  display: block;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .logo {
+    img {
+      width: 35px;
+    }
+  }
+}
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  .logo {
+    margin-right: 20px;
+    img {
+      width: 40px;
+    }
+  }
+}
+
+.menu {
+  display: flex;
+
+  .list {
+    list-style: none;
+
+    .link {
+      display: block;
+      text-decoration: none;
+      color: $color-main;
+      text-transform: uppercase;
+      font-size: $font-size-xs;
+      margin-left: 45px;
+      transition: $transition;
+      &:hover {
+        color: $color-secondary;
+      }
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .link {
+        margin-left: 0;
+        text-align: center;
+        padding: 10px;
+      }
+    }
+
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      .link {
+        margin-left: 15px;
+      }
+
+      &:last-child .link {
+        margin-right: 10px;
+      }
+    }
+
+    &:first-child .link {
+      margin-left: 0px;
+    }
+  }
+}
+#check-menu {
+  display: none;
+}
+.check-menu-label {
+  display: none;
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .menu-mobile {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+  }
+
+  .check-menu-label {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+
+    cursor: pointer;
+  }
+
+  .burger-line {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 24px;
+    height: 2.4px;
+    border-radius: 3px;
+    background-color: $color-main;
+  }
+
+  .second,
+  .third {
+    top: 30px;
+  }
+
+  .four {
+    width: 15px;
+    top: 40px;
+  }
+
+  .header__menu {
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 0;
+    margin-top: 60px;
+    background-color: #08090a;
+    width: 100%;
+  }
+
+  #check-menu:checked ~ .header__menu {
+    display: flex;
+  }
+
+  #check-menu:checked ~ .first {
+    display: none;
+  }
+
+  #check-menu:checked ~ .second {
+    transform: rotate(45deg);
+    transition: 0.5s ease;
+  }
+  #check-menu:checked ~ .third {
+    transform: rotate(-45deg);
+    transition: 0.5s ease;
+  }
+  #check-menu:checked ~ .four {
+    display: none;
+  }
+}
+
+.title {
+  margin: 0;
+  @include bebas;
+  font-weight: 400;
+  font-size: 80px;
+  letter-spacing: 3px;
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .title {
+    font-size: 33px;
+  }
+}
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  .title {
+    font-size: 42px;
+  }
+}
+.subtitle {
+  margin: 0;
+  margin-bottom: 10px;
+  @include bebas;
+  font-weight: normal;
+  font-size: $font-size-l;
+  line-height: 24px;
+  letter-spacing: 2px;
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .subtitle {
+    font-size: $font-size-m;
+    margin-bottom: 0;
+    font-weight: normal;
+  }
+}
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  .subtitle {
+    font-size: $font-size-m;
+  }
+}
+
+.button {
+  display: inline;
+  background: linear-gradient(
+    194.68deg,
+    $color-secondary 11.27%,
+    #f3af34 90.4%
+  );
+  border-radius: 4px;
+  font-size: 16px;
+  color: #1a1917;
+  padding: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  .button__border {
+    padding-right: 10px;
+    border-right: 1px solid $color-three;
+  }
+  b:last-child {
+    padding-left: 5px;
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .button {
+    font-size: $font-size-s;
+    padding: 10px;
+  }
+}
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  .button {
+    font-size: $font-size-s;
+    padding: 15px;
+  }
+}
+
+// === /COMMON === //
+
+// === MAIN SECTION === //
+.main {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/sec-start_bg.png) bottom / cover;
+
+  .wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .wrapper {
+      position: relative;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 21px;
+    align-items: center;
+    @include openB;
+
+    &__rightside {
+      display: flex;
+      align-items: center;
+      .header__lang-outer {
+        position: relative;
+        padding-right: 23px;
+        @include openB;
+        font-size: $font-size-xs;
+        line-height: 16px;
+        letter-spacing: 0.1em;
+
+        .lang__main {
+          width: 45px;
+          position: relative;
+          display: block;
+          color: $color-main;
+          text-decoration: none;
+          &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 5px;
+            background-image: url("../img/Vector\ 2.svg");
+            width: 10px;
+            height: 5px;
+          }
+        }
+        .header__lang-inner {
+          position: absolute;
+          display: none;
+          background-color: $color-three;
+          border-radius: 3px;
+          margin-top: 5px;
+          margin-left: -10px;
+
+          a {
+            display: block;
+            text-decoration: none;
+            width: 60px;
+            padding-left: 10px;
+            padding-top: 5px;
+            text-align: left;
+            color: $color-main;
+          }
+        }
+        .active {
+          display: block;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0.873968px;
+          background-color: $color-main;
+          height: 30px;
+          right: 0;
+          top: -5px;
+        }
+      }
+
+      .header__login {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .header__x-box {
+          padding-left: 25px;
+          padding-right: 18px;
+          &:hover {
+            path {
+              transition: $transition;
+              fill: $color-main;
+            }
+            cursor: pointer;
+          }
+        }
+        .header__steam {
+          &:hover {
+            path {
+              transition: $transition;
+              fill: $color-main;
+            }
+            cursor: pointer;
+          }
+        }
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .header__login {
+          display: none;
+        }
+      }
+      @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+        .header__login {
+          display: none;
+        }
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .header {
+      width: 250px;
+      .logo {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__content {
+    text-align: center;
+
+    .main__title {
+      margin-bottom: 7px;
+    }
+
+    .main__button {
+      display: inline-block;
+      margin: 0 auto;
+      margin-top: 28px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .main__button {
+        margin-top: 12px;
+      }
+    }
+  }
+
+  &__scroll-down {
+    margin: 0 auto;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    font-size: $font-size-xs;
+    line-height: 22px;
+    p {
+      margin: 0;
+    }
+  }
+}
+// === /MAIN SECTION === //
+
+// === ABOUT SECTION === //
+.about {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/sec-whatis_bg.png) center / cover;
+
+  .container__inner {
+    display: flex;
+
+    .about__left {
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+
+      .about__title::after {
+        content: "";
+        margin-top: 10px;
+        display: block;
+        width: 756px;
+        height: 3px;
+        line-height: 3px;
+        background-color: $color-main;
+        border-radius: 4px;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .about__title::after {
+          width: 103%;
+          margin-top: 30px;
+        }
+      }
+      @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+        .about__title::after {
+          width: 100%;
+          margin-top: 20px;
+        }
+      }
+
+      .about__text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
+        margin-left: -38px;
+
+        p {
+          position: relative;
+          width: 365px;
+
+          line-height: 22px;
+          text-align: justify;
+          &:first-child {
+            margin-top: 50px;
+          }
+          &:last-child {
+            margin-top: 20px;
+          }
+          span {
+            position: relative;
+            display: inline-block;
+          }
+
+          span::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            height: 7px;
+            background-color: $color-secondary;
+          }
+        }
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .about__text {
+          width: 80%;
+          margin-left: 45px;
+
+          p {
+            width: 100%;
+            line-height: 16px;
+            &:first-child {
+              margin-top: 25px;
+            }
+            &:last-child {
+              margin-top: 10px;
+            }
+            span::after {
+              height: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .about__left {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      .about__left {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+
+    .about__right {
+      display: flex;
+      align-items: center;
+
+      z-index: 1;
+      .swiper-container {
+        position: relative;
+        width: 610px;
+        height: 675px;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-container {
+          margin-top: 45px;
+          margin-left: 45px;
+          width: 100%;
+          height: 300px;
+        }
+      }
+      @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+        .swiper-container {
+          margin-top: 30px;
+          width: 100%;
+        }
+      }
+      .swiper-wrapper {
+        width: 502px;
+        height: 100%;
+        border-radius: 5px;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-wrapper {
+          width: 80%;
+        }
+      }
+      @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+        .swiper-wrapper {
+          width: 80%;
+        }
+      }
+
+      .swiper-slide {
+        height: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .swiper-button-next::after {
+        display: none;
+      }
+      .swiper-button-next {
+        display: flex;
+        width: 50px;
+        height: 50px;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-button-next {
+          width: 15px;
+          height: 15px;
+        }
+        .swiper-button-next svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .swiper-pagination {
+        width: 80%;
+        bottom: 25px;
+      }
+      .swiper-pagination-bullet {
+        width: 14px;
+        height: 14px;
+        border-radius: 100%;
+        border: 1px solid $color-main;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-pagination-bullet {
+          width: 10px;
+          height: 10px;
+        }
+      }
+      .swiper-pagination-bullet-active {
+        position: relative;
+        width: 14px;
+        height: 14px;
+        border-radius: 100%;
+        background-color: $color-main;
+        border: 1px solid $color-main;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-pagination-bullet-active {
+          width: 10px;
+          height: 10px;
+        }
+      }
+      .swiper-pagination-bullet-active:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 5.5px;
+        left: 5.5px;
+        width: 35px;
+        height: 2px;
+        background-color: $color-main;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-pagination-bullet-active:not(:last-child)::after {
+          width: 15px;
+          top: 3px;
+        }
+      }
+      .swiper-container-horizontal
+        > .swiper-pagination-bullets
+        .swiper-pagination-bullet {
+        margin: 0 25px;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .swiper-container-horizontal
+          > .swiper-pagination-bullets
+          .swiper-pagination-bullet {
+          margin: 0 7px;
+        }
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .container__inner {
+      flex-direction: column;
+      padding: 20px 0;
+    }
+  }
+  @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+    .container__inner {
+      flex-direction: column;
+      padding: 20px 0;
+    }
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-lg) {
+  .about {
+    height: auto;
+  }
+}
+
+// === ABOUT SECTION === //F
+
+// === FEATURES SECTION === //
+.features {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/sec-features_bg.png) 30% 10% / cover no-repeat;
+  .gradient {
+    width: 100%;
+    background: radial-gradient(
+      51.1% 80.48% at 30.85% 53.65%,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0) 19.2%,
+      rgba(4, 5, 6, 0.520671) 47.48%,
+      #080a0b 99.74%
+    );
+    .features__content {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      .features__content--wrapper {
+        width: 50%;
+        margin-top: calc(100vh / 4);
+        margin-bottom: calc(100vh / 4);
+
+        .features__header {
+          width: 100%;
+          margin-bottom: 70px;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-md) {
+          .features__header {
+            width: 60%;
+            margin-bottom: 0;
+          }
+        }
+
+        .tabs {
+          width: 100%;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-md) {
+          .tabs {
+            width: 70%;
+          }
+        }
+
+        .tabs__wrapper {
+          margin-top: 40px;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-md) {
+          .tabs__wrapper {
+            margin-top: 20px;
+          }
+        }
+        .tabs__wrapper:first-child {
+          margin: 0;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-md) {
+          .tabs__wrapper:first-child {
+            margin-top: 20px;
+          }
+        }
+        .input {
+          opacity: 0;
+        }
+
+        .tab::before {
+          content: "";
+          position: absolute;
+          top: 13px;
+          left: -11px;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          border: 1px solid $color-main;
+          z-index: 2;
+        }
+        #tab-1:checked ~ .tab::after {
+          content: "";
+          position: absolute;
+          top: 13px;
+          left: -11px;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background-color: $color-main;
+          border: 1px solid $color-main;
+          z-index: 3;
+        }
+        #tab-2:checked ~ .tab::after {
+          content: "";
+          position: absolute;
+          top: 13px;
+          left: -11px;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          border: 1px solid $color-main;
+          background-color: $color-main;
+          z-index: 3;
+        }
+        #tab-3:checked ~ .tab::after {
+          content: "";
+          position: absolute;
+          top: 13px;
+          left: -11px;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          border: 1px solid $color-main;
+          background-color: $color-main;
+          z-index: 3;
+        }
+        .tab {
+          position: relative;
+          @include bebas;
+          padding-left: 35px;
+          font-size: 36px;
+          line-height: 36px;
+          text-align: left;
+          letter-spacing: 2px;
+          color: $color-secondary;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+          .tab {
+            display: inline-block;
+            font-size: 21px;
+            line-height: 21px;
+            padding-left: 15px;
+            padding-top: 10px;
+          }
+        }
+        @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+          .tab {
+            display: inline-block;
+            font-size: 24px;
+            line-height: 24px;
+            padding-left: 15px;
+            padding-top: 10px;
+          }
+        }
+
+        .tab-content {
+          position: relative;
+          width: 362px;
+          display: none;
+          padding-top: 10px;
+          margin-left: 55px;
+
+          line-height: 22px;
+          text-align: justify;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+          .tab-content {
+            width: 85%;
+            padding-top: 0;
+            margin-left: 20px;
+          }
+        }
+        #tab-1:checked ~ .tab-content-1,
+        #tab-2:checked ~ .tab-content-2,
+        #tab-3:checked ~ .tab-content-3 {
+          display: block;
+          &::after {
+            content: "";
+            position: absolute;
+            top: -13px;
+            left: -43px;
+            width: 3px;
+            height: calc(100% + 3.8rem);
+            background-color: $color-main;
+          }
+        }
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .features__content--wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          width: 100%;
+        }
+      }
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .features__content {
+        height: auto;
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-md) {
+    .gradient {
+      background: radial-gradient(
+        57.45% 44.77% at 31.45% 40.62%,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(4, 5, 6, 0.520671) 25.99%,
+        rgba(6, 7, 8, 0.739601) 75.03%,
+        #080a0b 99.74%
+      );
+    }
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-md) {
+  .features {
+    height: auto;
+    background-size: 1000px;
+    background-position: -220px 120px;
+  }
+}
+
+// === FEATURES SECTION === //
+
+// === REQUIRMENTS SECTION === //
+.requirments {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/sec-sysreq_bg.png) center / cover no-repeat;
+  .requirments__top {
+    text-align: center;
+    padding-top: 12.12%;
+    .requirments__title {
+      margin-left: 13px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .requirments__title {
+        margin: 0;
+        white-space: nowrap;
+      }
+    }
+  }
+  .table {
+    position: relative;
+    margin-top: 133px;
+    max-width: 573px;
+    border: 1px solid $color-table;
+    border-bottom: none;
+
+    height: 400px;
+
+    .table__row {
+      width: 100%;
+      display: flex;
+    }
+    .table__colomn {
+      // width: 50%;
+      height: 125px;
+      padding: 14px 20px;
+    }
+    .left {
+      width: 47.53%;
+      border-right: 1px solid $color-table;
+      border-bottom: 1px solid $color-table;
+    }
+    .right {
+      width: 52.48%;
+      border-bottom: 1px solid $color-table;
+    }
+
+    .table__colomn-bottom {
+      width: 100%;
+      height: 125px;
+      padding: 14px 20px;
+
+      border-bottom: none;
+    }
+
+    .table__title {
+      @include bebas;
+      font-size: $font-size-l;
+      line-height: 24px;
+      letter-spacing: 2px;
+
+      color: $color-secondary;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .table__title {
+        font-size: $font-size-m;
+      }
+    }
+
+    .table__text {
+      margin-top: 15px;
+      line-height: 22px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .table__text {
+        margin-top: 7px;
+        line-height: 16px;
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .table {
+      margin-top: 70px;
+    }
+  }
+  .table::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    bottom: -10px;
+    display: block;
+    width: 100.3%;
+    height: 100%;
+    background: url(../img/table-line-new.svg);
+    background-position: bottom;
+    background-size: cover;
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .table::after {
+      bottom: 0;
+      background-position: 0 0;
+      width: 100.5%;
+    }
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .requirments {
+    height: auto;
+    padding-bottom: 200px;
+    background: url("../img/sec-sysreq_bg--mobile.png") no-repeat;
+    background-position: bottom;
+  }
+}
+// === REQUIRMENTS SECTION === //
+
+// === QUOTES SECTION === //
+.quotes {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/sec-quotes_bg.png) top / cover;
+  .container__inner {
+    display: flex;
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .container__inner {
+      flex-direction: column;
+    }
+  }
+  .quotes__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+    height: 100vh;
+    .quotes__left___top {
+      margin-bottom: 50px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .quotes__left___top {
+        margin-bottom: 35px;
+      }
+    }
+
+    .quotes__left___center {
+      margin-bottom: 60px;
+      p {
+        width: 435px;
+
+        line-height: 22px;
+      }
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .quotes__left___center {
+        margin-bottom: 25px;
+        p {
+          width: 100%;
+        }
+      }
+    }
+    .quotes__button {
+      padding: 20px 40px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .quotes__button {
+        margin: 0 auto;
+        padding: 10px 15px;
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .quotes__left {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .quotes__right {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    .quotes__cite {
+      // position: relative;
+      width: 452px;
+      border-radius: 10px;
+      background-color: #1a1c1d;
+      margin-bottom: 30px;
+      padding: 15px;
+      .cite__header {
+        position: relative;
+        display: flex;
+      }
+
+      .cite__user {
+        padding-top: 10px;
+        padding-left: 22px;
+        .cite__name {
+          @include bebas;
+          font-size: $font-size-l;
+          line-height: 24px;
+          letter-spacing: 2px;
+          color: $color-secondary;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+          .cite__name {
+            font-size: 21px;
+            line-height: 21px;
+          }
+        }
+        .cite__work-place {
+          line-height: 22px;
+          text-align: justify;
+          opacity: 0.5;
+        }
+      }
+
+      .cite__twitter {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+      }
+      .cite__content {
+        margin-top: 25px;
+
+        line-height: 25px;
+      }
+      .cite__date {
+        margin-top: 9px;
+        font-size: $font-size-s;
+        line-height: 19px;
+        opacity: 0.5;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .cite__date {
+          font-size: $font-size-xs;
+        }
+      }
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .quotes__cite {
+        width: 100%;
+      }
+    }
+    .quotes__cite:last-child {
+      margin-bottom: 0;
+    }
+    .quotes__cite-center {
+      margin-left: -150px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .quotes__cite-center {
+        margin-left: 0;
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .quotes__right {
+      width: 100%;
+      height: auto;
+      margin-top: 30px;
+    }
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .quotes {
+    height: auto;
+    padding-bottom: 150px;
+  }
+}
+// === QUOTES SECTION === //
+
+// === NEWSLETTER SECTION === //
+.newsletter {
+  width: 100%;
+  height: 100vh;
+  background: url(../img/sec-subs_bg.png) center / cover;
+  .container__inner {
+    display: flex;
+    position: relative;
+  }
+  .newsletter__left {
+    display: flex;
+    align-items: center;
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .newsletter__left {
+      width: 100%;
+      position: absolute;
+      left: -120px;
+      top: 0px;
+      z-index: 0;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .newsletter__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 65px;
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .newsletter__right___top {
+        width: 70%;
+        margin-left: 100px;
+      }
+    }
+
+    .newsletter__right___center {
+      margin-top: 60px;
+      line-height: 22px;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .newsletter__right___center {
+        width: 50%;
+        margin-left: 100px;
+      }
+    }
+    .newsletter__right___bottom {
+      display: flex;
+
+      margin-top: 60px;
+      .block-email {
+        position: relative;
+
+        #email {
+          width: 320px;
+          margin-right: 15px;
+          padding-top: 30px;
+          padding-bottom: 5px;
+          padding-left: 20px;
+          background: rgba(255, 255, 255, 0.08);
+          border-radius: 5px;
+          border: none;
+          line-height: 25px;
+          color: $color-secondary;
+          &::placeholder {
+            line-height: 25px;
+            color: $color-secondary;
+          }
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+          #email {
+            width: 100%;
+            font-size: $font-size-s;
+            line-height: 19px;
+          }
+        }
+        .label-email {
+          position: absolute;
+          left: 20px;
+          top: 5px;
+          font-size: $font-size-s;
+          line-height: 19px;
+          opacity: 0.5;
+          border-radius: 4px;
+        }
+        @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+          .label-email {
+            font-size: $font-size-xs;
+            line-height: 16px;
+          }
+        }
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .block-email {
+          width: 95%;
+          margin: 0 auto;
+        }
+      }
+
+      .newsletter__button {
+        line-height: 19px;
+        padding: 20px 70px;
+      }
+      @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+        .newsletter__button {
+          display: inline-block;
+          margin-top: 20px;
+          padding: 10px 90px;
+        }
+      }
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .newsletter__right___bottom {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .newsletter__right {
+      margin-left: 0;
+      z-index: 1;
+    }
+  }
+}
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+  .newsletter {
+    height: auto;
+    padding-bottom: 100px;
+  }
+}
+
+// === NEWSLETTER SECTION === //
+
+// === FOOTER SECTION === //
+.footer {
+  padding-bottom: 50px;
+
+  .footer__top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    @include openB;
+
+    .icons__element + .icons__element {
+      margin-left: 55px;
+    }
+    .facebook:hover {
+      cursor: pointer;
+      path {
+        fill: #1877f2;
+      }
+    }
+    .twitter:hover {
+      cursor: pointer;
+      path {
+        fill: #1da1f2;
+      }
+    }
+    .youtube:hover {
+      cursor: pointer;
+      path {
+        fill: #ff1313;
+      }
+    }
+    .twitch:hover {
+      cursor: pointer;
+      path {
+        fill: #9147ff;
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .footer__top {
+      flex-direction: column;
+
+      img {
+        width: 50px;
+        margin-bottom: 40px;
+      }
+      .footer__menu {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .footer__icons {
+        margin-bottom: 30px;
+      }
+    }
+  }
+  .footer__top::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $color-main;
+    opacity: 0.5;
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    .footer__copyright {
+      font-size: $font-size-s;
+      line-height: 19px;
+      opacity: 0.5;
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .footer__copyright {
+        text-align: center;
+        font-size: $font-size-xs;
+        line-height: 16px;
+      }
+    }
+    .footer__link {
+      display: flex;
+
+      a {
+        display: block;
+        font-size: $font-size-xs;
+        line-height: 16px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: $color-main;
+        padding: 0 10px;
+      }
+      .footer__link--focus {
+        border-left: 1px solid $color-main;
+        border-right: 1px solid $color-main;
+      }
+    }
+
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      .footer__link {
+        margin-top: 30px;
+        flex-direction: column;
+        align-items: center;
+        a {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .footer__bottom {
+      flex-direction: column;
+    }
+  }
+}
+// === FOOTER SECTION === //
